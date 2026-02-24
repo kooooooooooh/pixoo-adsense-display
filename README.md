@@ -2,6 +2,8 @@
 
 Display your Google AdSense earnings on a Pixoo 64 display using Python.
 
+![Pixoo Screenshot](pixoo_adsense_1.jpg)
+
 ---
 
 ## Architecture
