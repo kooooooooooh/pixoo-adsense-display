@@ -16,17 +16,17 @@ DEBUG = True
 
 SCOPES = ["https://www.googleapis.com/auth/adsense.readonly"]
 
-# ===== 設定 =====
-PIXOO_IP = "<pixooのipアドレス>"  # ここを書き換える
+# ===== Configuration =====
+PIXOO_IP = "<pixooのipアドレス>"  # Replace with your Pixoo IP address
 UPDATE_SECONDS = 30 * 60
 
 RANGE_TODAY = "TODAY"
 RANGE_WEEK = "LAST_7_DAYS"
 RANGE_MONTH = "LAST_30_DAYS"
-# =================
+# =========================
 
 HERE = Path(__file__).resolve().parent
-CLIENT_SECRET = HERE / "client_secret.json" # 手元のファイル名に合わせてください
+CLIENT_SECRET = HERE / "client_secret.json"  # Adjust if your filename differs
 TOKEN_FILE = HERE / "token.json"
 
 PIXOO_URL = f"http://{PIXOO_IP}/post"
@@ -118,7 +118,7 @@ def pixoo_text(text_id: int, x: int, y: int, text: str):
 def format_money(v: float) -> str:
     return f"{int(round(v))}"
 
-# ---------------- Pixel Background（アイコン復活版） ----------------
+# ---------------- Pixel Background (Icon Version Restored) ----------------
 def _load_font(size: int):
     try:
         if FONT_FILE.exists():
@@ -206,7 +206,7 @@ def render_background_picdata() -> str:
 
     dr.line([6, 22, 57, 22], fill=(60, 60, 60))
 
-    # アイコン + ラベル（TD→1Dのみ変更）
+    # Icons + labels (changed from TD to 1D only)
     _draw_icon_clock(dr, 6, 26)
     _draw_icon_calendar(dr, 6, 38)
     _draw_icon_coin(dr, 6, 51)
@@ -231,14 +231,12 @@ def main():
             month = get_total(service, account, RANGE_MONTH)
 
             pixoo_send_http_gif(BACKGROUND_PICDATA)
-            time.sleep(0.2)  # 少し待ってからテキストを送らないと、背景が更新される前にテキストが送られてしまうことがある
+            time.sleep(0.2)  # Insert a short delay to ensure the background is applied before sending text
 
             x_val = 38            
 
             pixoo_text(11, x_val, 22, format_money(today))
-
             pixoo_text(12, x_val, 34, format_money(week))
-
             pixoo_text(13, x_val, 46, format_money(month))
 
         except Exception as e:
